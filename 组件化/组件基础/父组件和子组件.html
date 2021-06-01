@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>父组件和子组件</title>
+		<script
+			src="../../vue/vue.js"
+			type="text/JavaScript"
+			charset="utf-8"
+		></script>
+	</head>
+	<body>
+		<div id="app">
+			<cpn2></cpn2>
+
+			<!--cpn1是子组件，cpn2是父组件，子组件在父组件的构造器内注册，只能在父组件内使用，这里无法生效-->
+			<cpn1></cpn1>
+		</div>
+
+		<script>
+			// 创建组件构造器一
+			const componentConstructor = Vue.extend({
+				template: `
+                    <div>
+                        <h2>我是标题</h2>
+						<p>我是内容，组件一</p>
+                    </div>
+                `,
+			});
+			// 创建组件构造器二
+			const componentConstructor2 = Vue.extend({
+				template: `
+                    <div>
+                        <h2>我是标题</h2>
+                        <p>我是组件二</p>
+                        <cpn1></cpn1>
+                    </div>
+                `,
+				components: {
+					cpn1: componentConstructor,
+				},
+			});
+			// root组件：Vue实例是根组件
+			const app = new Vue({
+				el: "#app",
+				components: {
+					cpn2: componentConstructor2,
+				},
+			});
+		</script>
+	</body>
+</html>

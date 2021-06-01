@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="../../workplace/前端监控/CWPAPP_Engine/packages/ha-tracker/dist/h5-ha-tracker.js"></script>
+		<script src="../../workplace/前端监控/CWPAPP_Engine/packages/ha-sdk/dist/h5-ha-sdk.js"></script>
+	</head>
+	<body>
+		<div id="zz">点这里</div>
+	</body>
+</html>
+
+<script>
+	/* 设置 localstorage 的过期时间 */
+	/* Storage.prototype.setExpire = (key, value, expire) => {
+		let obj = {
+			data: value,
+			time: Date.now(),
+			expire: expire,
+		};
+		localStorage.setItem(key, JSON.stringify(obj));
+	};
+
+	Storage.prototype.getExpire = (key) => {
+		let val = localStorage.getItem(key);
+		if (!val) {
+			return val;
+		}
+		val = JSON.parse(val);
+		if (Date.now() - val.time > val.expire) {
+			localStorage.removeItem(key);
+			return null;
+		}
+		return val.data;
+	};
+
+	localStorage.setExpire("test", "会过期吗", 3000);
+	setTimeout(() => {
+		console.log(localStorage.getExpire("test"));
+	}, 2000); */
+
+	/* const obj = document.getElementById("zz");
+	obj.addEventListener("click", function fun(e) {
+		console.log(e);
+		this.removeEventListener("click", fun);
+	});
+
+	window.addEventListener("error", (e) => {
+		console.log(e);
+	});
+	window.onerror = (errorMessage, scriptURI, lineNo, columnNo, error) => {
+		console.log(errorMessage, scriptURI, lineNo, columnNo, error.stack);
+	};
+	// throw new Error();
+
+	new Promise((resolve, reject) => {
+		setTimeout(() => {
+			reject("kkk");
+		}, 2000);
+	});
+	window.onunhandledrejection = (e) => {
+		console.log(e);
+	};
+	window.addEventListener("unhandledrejection", (e) => {
+		console.log(e);
+	}); */
+
+	const haTracker = new HaTracker();
+	haTracker.setAppId("wx388d9ceea0e59f81"); // 渠道id'
+
+	haTracker.setReportUrl("https://metrics-drcn.dt.hicloud.com:6447/webv2");
+
+	window.addEventListener("error", (e) => {
+		console.log(e.error.stack);
+	});
+
+	const a = 1;
+	a = 2;
+	// throw new Error("zz");
+	// const sdk = new haSdk();
+	// sdk.configHa({
+	// 	idsite: "com.huawei.cbg.abtest",
+	// 	reportUrl: "https://metrics-drcn.dt.hicloud.com:6447/webv2",
+	// });
+
+	// sdk.sendHaEvent(
+	// 	{
+	// 		name: "error",
+	// 		label: "error",
+	// 		data: {
+	// 			// data内的属性根据各个业务需要自定义
+	// 			key: "value",
+	// 		},
+	// 	},
+	// 	{
+	// 		idsite: "com.huawei.cbg.abtest",
+	// 		reportUrl: "https://metrics-drcn.dt.hicloud.com:6447/webv2",
+	// 	}
+	// );
+</script>

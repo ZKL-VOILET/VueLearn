@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <!--需求：生成一个列表，点击其元素换色-->
+    <head>
+        <meta charset="utf-8">
+        <title>列表元素点击换色</title>
+        <script src="D:\VueDemo\vue\vue.js" type="text/javascript" charset="utf-8"></script>
+        <style>
+            .active {
+                color: blue; 
+            }
+        </style>
+    </head>
+
+    <body>
+        <!--动态绑定列表的class，点击谁就换色，判断index是否相等-->
+        <div id="app">
+            <ul>
+                <li v-for="(item, index) in movies" :class='{active: index==currentIndex}'
+                v-on:click='isClick(index)'>
+                    {{item}}
+                </li>
+            </ul>
+        </div>
+
+        <script>
+            const app = new Vue({
+                el: '#app',
+                data: {
+                    movies: ['星际穿越', '大话西游', '夜机'],
+                    currentIndex: 0
+                },
+                methods: {
+                    isClick(index) {
+                        this.currentIndex = index;
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
+
+

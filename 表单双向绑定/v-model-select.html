@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>v-model结合select</title>
+	<script src="D:\VueDemo\vue\vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<div id="app">
+		<form>
+			<select name="fruits" v-model="fruit">
+				<option value="苹果">苹果</option>
+				<option value="香蕉">香蕉</option>
+				<option value="榴莲">榴莲</option>
+				<option value="葡萄">葡萄</option>
+			</select>
+		</form>
+		<h2>您选择的水果是：{{fruit}}</h2>
+
+		<form>
+			<!--multiple下拉列表可多选-->
+			<select name="fruits" v-model="fruits" multiple>
+				<option value="苹果">苹果</option>
+				<option value="香蕉">香蕉</option>
+				<option value="榴莲">榴莲</option>
+				<option value="葡萄">葡萄</option>
+			</select>
+		</form>
+		<h2>您选择的水果是：{{fruits}}</h2>
+	</div>
+
+	<script>
+		const app = new Vue({
+			el: '#app',
+			data: {
+				fruit: '',
+				fruits: []
+			}
+		})
+	</script>
+
+</body>
+</html>

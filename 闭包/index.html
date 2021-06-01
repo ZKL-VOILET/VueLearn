@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>循环和闭包</title>
+	</head>
+	<body>
+		<script>
+			for (var i = 1; i <= 50; i++) {
+				(function () {
+					var j = i; // 让循环中的闭包拥有自己的作用域及变量
+					setTimeout(() => {
+						console.log(j);
+					}, j * 1000);
+				})();
+			}
+
+			// let拥有块作用域，不用添加多余的闭包
+			for (let i = 1; i <= 5; i++) {
+				setTimeout(() => {
+					console.log(i);
+				}, i * 1000);
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>双向绑定radio单选框</title>
+    <script src="D:\VueDemo\vue\vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+    <div id="app">
+        <form>
+            <input type="radio" name="sex" value="male" v-model="sex">male
+            </br>
+            <input type="radio" name="sex" value="female" v-model="sex">female
+        </form>
+        <h2>您选择的性别是：{{sex}}</h2>
+    </div>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                sex: ''
+            }
+        })
+    </script>
+</body>
+</html>
