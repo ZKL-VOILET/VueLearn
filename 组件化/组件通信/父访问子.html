@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>父访问子$children</title>
+		<script src="../../vue/vue.js" type=""></script>
+	</head>
+	<body>
+		<div id="app">
+			<cpn ref="first"></cpn>
+			<cpn ref="second"></cpn>
+			<button @click="btnClick">click</button>
+		</div>
+
+		<template id="myCpn">
+			<div>
+				<h2>我是子组件</h2>
+			</div>
+		</template>
+		<script>
+			const cpn = {
+				template: "#myCpn",
+				data() {
+					return {
+						name: "子组件数据",
+					};
+				},
+				methods: {
+					showMessage() {
+						console.log("showMessage");
+					},
+				},
+			};
+			const app = new Vue({
+				el: "#app",
+				data: {
+					message: "父访问子",
+				},
+				components: {
+					cpn,
+				},
+				methods: {
+					btnClick() {
+						// console.log(this.$children);
+						// // 通过this.$children访问子组件，返回子组件的数组[VueComponent, VueComponent]
+						// for (let c of this.$children) {
+						// 	c.showMessage();
+						// 	console.log(c.name);
+						// }
+
+						/*--------------通过this.$refs拿到所有有ref属性的组件{first:VueComponent, second:VueComponent}*/
+						console.log(this.$refs.first.showMessage());
+						this.$refs.first.name = "modify";
+						this.$refs.second.name = "modify2";
+						console.log(this.$refs.first.name);
+						console.log(this.$refs.second.name);
+					},
+				},
+			});
+		</script>
+	</body>
+</html>

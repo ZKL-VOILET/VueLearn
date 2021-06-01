@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>子访问父$parent</title>
+    <script src="../../vue/vue.js" type="text/JavaScript" charset="utf-8"></script>
+</head>
+<body>
+    <div id="app">
+        <parent></parent>
+    </div>
+
+    <template id="parent">
+        <div>
+            <h2>我是父组件</h2>
+            <children></children>
+        </div>
+    </template>
+
+    <template id="child">
+        <div>
+            <h2>我是子组件</h2>
+            <button @click="btnClick">click</button>
+        </div>
+    </template>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '子访问父',
+            },
+            components: {
+                parent: {
+                    template: '#parent',
+                    data() {
+                        return {
+                            name: '父组件的name',
+                        };
+                    },
+                    components: {
+                        children: {
+                            template: '#child',
+                            methods: {
+                                btnClick() {
+                                    console.log(this.$parent); // 访问父组件
+                                    console.log(this.$root); // 访问跟组件
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script
+			src="D:\VueDemo\vue\vue.js"
+			type="text/javascript"
+			charset="utf-8"
+		></script>
+	</head>
+	<body>
+		<div id="app">{{ message }}</div>
+
+		<script>
+			// Vue把界面和数据分离了
+			// 编程范式：声明式编程（声明式渲染）
+			// 允许采用简洁的模板语法来声明式地将数据渲染进 DOM 的系统
+			const app = new Vue({
+				el: "#app", // 挂载相应id元素
+				data: {
+					// 定义数据
+					message: "Hello Vue!",
+				},
+			});
+			/*
+			            JS的做法
+			            1、创建div元素，设置id
+			            2、定义变量message
+			            3、利用DOM操作显示message
+			            */
+		</script>
+	</body>
+</html>

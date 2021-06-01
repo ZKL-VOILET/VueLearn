@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>作用域插槽</title>
+		<script src="../../vue/vue.js" type="text/JavaScript"></script>
+	</head>
+	<body>
+		<!--作用域插槽的作用：
+        在父组件作用域内采用不同的渲染方式展示子组件的数据-->
+		<div id="app">
+			<cpn></cpn>
+			<!--当slot没有指定name，可以在cpn标签中使用这种缩写语法-->
+			<cpn v-slot="slotProps">
+				<span>{{slotProps.data.join('-')}}</span>
+			</cpn>
+			<!--slot指定name，在template中使用这种标准语法-->
+			<cpn>
+				<template v-slot:cpn="slotProps">
+					{{slotProps.data.join('-*-')}}
+				</template>
+			</cpn>
+			<!--官方文档还有解构插槽prop，直接传入具体的插槽prop-->
+			<cpn v-slot="{data}">
+				<span>{{data.join('-')}}</span>
+			</cpn>
+		</div>
+
+		<template id="myCpn">
+			<div>
+				<slot :data="languages">
+					<ul>
+						<li v-for="item in languages">{{item}}</li>
+					</ul>
+				</slot>
+				<!--注意：亲测name不能大写，否则<cpn>中无法识别-->
+				<slot name="cpn" :data="languages">
+					<ul>
+						<li v-for="item in languages">{{item}}</li>
+					</ul>
+				</slot>
+			</div>
+		</template>
+
+		<script>
+			const cpn = {
+				template: "#myCpn",
+				data() {
+					return {
+						languages: ["JavaScript", "java", "c++", "python"],
+					};
+				},
+			};
+
+			const app = new Vue({
+				el: "#app",
+				data: {},
+				components: {
+					cpn,
+				},
+			});
+		</script>
+	</body>
+</html>

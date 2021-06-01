@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <script src="D:\VueDemo\vue\vue.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+    <body>
+        <div id="app">
+            <div @click="divClick">
+                <button @click="btnClick">点击触发两个点击事件</button>
+                <button @click.stop="btnClick">修饰符stop只触发按钮点击而不是div点击</button>
+
+                <!--还有更多修饰符，例如prevent阻止提交表单操作-->
+                <form action="baidu">
+                    <input type="submit" value="submit" @click.prevent="submitClick">
+                    <!--按键修饰符，选择某个按键-->
+                    <input type="text" @keyup.enter="keyUp">
+                </form>
+
+
+            </div>
+        </div>
+        
+        <script>
+            /*
+            实现计数器
+            */
+            const app = new Vue({
+              el: '#app',  // 挂载相应id元素
+              // 在Vue对象中用methods定义函数
+              methods: {
+                  btnClick() {
+                      console.log("btnClick");
+                  },
+                  divClick() {
+                      console.log("divClick");
+                  },
+                  submitClick() {
+                      console.log("submitClick");
+                  },
+                  keyUp() {
+                    console.log("keyup");
+                  }
+              }
+            })
+        </script>
+    </body>
+</html>

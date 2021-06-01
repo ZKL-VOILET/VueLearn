@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slot的使用</title>
+    <script src="../../vue/vue.js" type="text/JavaScript" charset="utf-8"></script>
+</head>
+<body>
+
+    <!--1、slot预留插槽，使用组件时填入特定内容
+        2、slot可以提供默认值
+    -->
+
+    <div id="app">
+        <cpn><button>{{message}}</button></cpn>
+        <cpn></cpn>
+    </div>
+
+    <template id="myCpn">
+        <div>
+            <h2>我是组件，下方预留插槽</h2>
+            <slot>默认值</slot>
+            <slot>默认值</slot>
+        </div>
+    </template>
+    <script>
+        const cpn = {
+            template: '#myCpn',
+        };
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: 'hello',
+            },
+            components: {
+                cpn,
+            }
+        })
+    </script>
+</body>
+</html>

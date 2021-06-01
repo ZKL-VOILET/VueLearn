@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>父子组件通信案例</title>
+    <script src="../../vue/vue.js" type="text/JavaScript" charset="utf-8"></script>
+</head>
+<body>
+    <!--1、子组件数据和input数据双向绑定；
+    2、input数据改变父组件数据同步改变（子组件向父组件传递）
+    3、num1和num2成百倍关系，一方改变另一方也变-->
+    <div id="app">
+        <cpn :c_num1="num1" :c_num2="num2"
+        @num1change="num1change" @num2change="num2change"></cpn>
+    </div>
+
+    <template id="myTemp">
+        <div>
+            <h2>父组件数据：{{c_num1}}</h2>
+            <h2>子组件数据：{{dc_num1}}</h2>
+            <input type="text" v-model="dc_num1">
+            <h2>父组件数据：{{c_num2}}</h2>
+            <h2>子组件数据dc_num2:{{dc_num2}}</h2>
+            <input type="text" v-model="dc_num2">
+        </div>
+    </template>
+    <script>
+        const cpn = {
+            template: '#myTemp',
+            data() {
+                return {
+                    dc_num1: this.c_num1,
+                    dc_num2: this.c_num2,
+                };
+            },
+            props: {
+                c_num1: {
+                    type: Number,
+                },
+                c_num2: {
+                    type: Number,
+                },
+            },
+            // watch监听data数据是否改变，并传入新的值
+            watch: {
+                dc_num1(newValue) {
+                    // emit发送的argv默认为string类型
+                    this.$emit('num1change', newValue);
+                    this.dc_num2 = newValue * 100;
+                },
+                dc_num2(newValue) {
+                    this.$emit('num2change', newValue);
+                    this.dc_num1 = newValue / 100;
+                }
+            }
+        }
+        const app = new Vue({
+            el: '#app',
+            data: {
+                num1: 1,
+                num2: 2,
+            },
+            components: {
+                cpn,
+            },
+            methods: {
+                num1change(newValue) {
+                    this.num1 = parseFloat(newValue);
+                },
+                num2change(newValue) {
+                    this.num2 = parseFloat(newValue);
+                }
+            },
+        })
+    </script>
+</body>
+</html>

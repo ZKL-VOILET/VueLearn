@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>props父传子</title>
+		<script src="../../vue/vue.js" type="text/JavaScript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<cpn v-bind:c_message="message" :c-movies="movies"></cpn>
+		</div>
+
+		<template id="cpn">
+			<div>
+				<h2>{{c_message}}</h2>
+				<p>{{c_movies}}</p>
+				<ul>
+					<li v-for="item in c_movies">{{item}}</li>
+				</ul>
+			</div>
+		</template>
+
+		<script>
+			/** 父传子props
+			 * 1、将Vue对象（root组件）作为父组件，其中注册一个子组件cpn
+			 * 2、这里注册子组件结合了语法糖、template模板分离
+			 * 3、在子组件中使用props属性，用于接收父组件的数据
+			 * 4、使用子组件展示父组件的数据时，需要v-bind绑定父组件数据到props变量中
+			 *
+			 */
+			const cpn = {
+				template: "#cpn",
+				//props: ["c_movies", "c_message"],// 数组
+				props: {
+					// 1、可以限制类型
+					/* c_message: String,
+					c_movies: Array, */
+
+					// 2、限制类型外还可以提供默认值
+					/**
+					 * default:当使用时未绑定数据，传入默认值
+					 * required：表示此数据必须绑定
+					 */
+					c_message: {
+						type: String,
+						default: "默认值",
+						required: true,
+					},
+					c_movies: {
+						type: Array,
+						// default数据是数组、对象时，需要用工厂函数返回
+						default() {
+							return ["默认数组"];
+						},
+					},
+				},
+				data() {
+					return {};
+				},
+				methods: {},
+			};
+			// root组件
+			const app = new Vue({
+				el: "#app",
+				data: {
+					message: "父传子props",
+					movies: ["复仇者联盟", "美国往事", "八百"],
+				},
+				components: {
+					//cpn: cpn,
+					// es6增强写法
+					cpn,
+				},
+			});
+
+			console.log(!null); 
+		</script>
+	</body>
+</html>

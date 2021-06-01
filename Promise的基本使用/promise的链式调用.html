@@ -1,0 +1,17 @@
+<script>
+    new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('zkl')
+        },1000)
+    }).then(data => {
+        console.log(data)
+        // 链式调用，没有异步操作，只对数据进一步处理
+        return Promise.resolve(data + '666')
+    }).then(data => {
+        console.log(data)
+        // 更简洁的写法
+        return data + '999'
+    }).then(data => {
+        console.log(data)
+    })
+</script>

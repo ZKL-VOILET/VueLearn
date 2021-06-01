@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="utf-8" />
+		<script
+			src="D:\VueDemo\vue\vue.js"
+			type="text/javascript"
+			charset="utf-8"
+		></script>
+		<style>
+			.main {
+				width: 600px;
+				height: 600px;
+				background: #dddddd;
+				position: relative;
+			}
+			.list {
+				width: 30%;
+				height: 30%;
+				position: absolute;
+				top: 0;
+				margin-top: auto;
+				bottom: 0;
+				left: 0%;
+				right: 0%;
+				margin: auto;
+			}
+			.li {
+				color: blue;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" class="main">
+			<ul class="list">
+				<!--绑定key，提高数组插入效率-->
+				<li
+					v-for="(item,index) in movies"
+					:key="item"
+					@click="click(index)"
+					:class="{li: active === index}"
+				>
+					{{ item }}
+				</li>
+			</ul>
+			<button @click="btnClick">按钮</button>
+		</div>
+
+		<script>
+			let app = new Vue({
+				el: "#app",
+				data: {
+					movies: ["星际穿越", "大话西游", "夜机", "头文字D", "追龙"],
+					active: "",
+				},
+				methods: {
+					btnClick() {
+						this.movies[0] = "改变了吗";
+						this.movies.splice(1, 0, "插入元素");
+					},
+					click(index) {
+						this.active = index;
+					},
+				},
+				beforeUpdate() {
+					console.log(Date.now());
+				},
+				updated() {
+					console.log(Date.now());
+				},
+			});
+		</script>
+	</body>
+</html>

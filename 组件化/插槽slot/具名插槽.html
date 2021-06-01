@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>slot--具名插槽</title>
+		<script
+			src="../../vue/vue.js"
+			type="text/JavaScript"
+			charset="utf-8"
+		></script>
+	</head>
+	<body>
+		<!--1、slot预留插槽，使用组件时填入特定内容
+        2、slot可以提供默认值
+        3、具名插槽在一个组件中使用多个插槽（slot已被废弃，现在用v-slot）
+        4、具名插槽可以替换指定的插槽，而不会全部替换
+    -->
+
+		<div id="app">
+			<!--未指定name，只能替换没有name的插槽-->
+			<cpn><button>{{message}}</button></cpn>
+			<!--已废弃的slot用法，在html标签内使用-->
+			<cpn><span slot="left">{{message}}</span></cpn>
+			<!--使用插槽时用v-slot:name代替slot，只能在template标签使用-->
+			<cpn>
+				<template v-slot:left> {{message}} </template>
+			</cpn>
+			<!--具名插槽的缩写v-slot:name => #name-->
+			<cpn>
+				<template #left> {{message}} </template>
+			</cpn>
+		</div>
+
+		<template id="myCpn">
+			<div>
+				<h2>我是组件，下方预留插槽</h2>
+				<slot name="left">left</slot>
+				<slot name="center">center</slot>
+				<slot name="right">right</slot>
+			</div>
+		</template>
+		<script>
+			const cpn = {
+				template: "#myCpn",
+			};
+			const app = new Vue({
+				el: "#app",
+				data: {
+					message: "替换具名插槽",
+				},
+				components: {
+					cpn,
+				},
+			});
+		</script>
+	</body>
+</html>

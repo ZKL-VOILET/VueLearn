@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>v-model与checkbox复选框</title>
+		<script src="D:\VueDemo\vue\vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+  	<body>
+    	<div id="app">
+      	<form>
+        <!--label绑定一个input，点击文字也可选择-->
+        	<label for="protocol">
+          <!--checkbox多选框只有一个时，返回布尔值-->
+          	<input type="checkbox" id="protocol" v-model="isAgree" />同意协议
+        	</label>
+      	</form>
+
+      	<form>
+        <!--checkbox多选框有多个时，返回value数组-->
+			<input type="checkbox" value="乒乓球" v-model="hobbies" />乒乓球
+			<input type="checkbox" value="排球" v-model="hobbies" />排球
+			<input type="checkbox" value="棒球" v-model="hobbies" />棒球
+			<input type="checkbox" value="保龄球" v-model="hobbies" />保龄球
+      	</form>
+      	<h2>您的爱好是：{{hobbies}}</h2>
+    	</div>
+    	<script>
+      	const app = new Vue({
+        	el: "#app",
+        	data: {
+          	isAgree: false,
+          	hobbies: [],
+        	},
+      	});
+    	</script>
+  	</body>
+</html>

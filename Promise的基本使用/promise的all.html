@@ -1,0 +1,22 @@
+<script>
+    /**
+    *Promise.all()能包装多个异步处理操作，当某个需求需要多个网络请求都成功时才能完成
+    all()就能自动判断里面的多个异步操作是否成功
+    */
+
+    Promise.all([
+        new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('zkl')
+            })
+        }),
+        new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve({name: 'wzj', age: 23})
+            })
+        })
+    ]).then(results => {
+        // 返回的参数包含以上数据的一个数组
+        console.log(results)
+    })
+</script>

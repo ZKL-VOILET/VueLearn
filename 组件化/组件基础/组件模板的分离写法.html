@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>组件模板分离写法</title>
+		<script src="../vue/vue.js" type="text/JavaScript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--3、使用组件-->
+			<my-cpn></my-cpn>
+			<cpn></cpn>
+		</div>
+
+		<div id="app2">
+			<my-cpn></my-cpn>
+			<cpn></cpn>
+		</div>
+		<!--1、使用script标签-->
+		<script type="text/x-template" id="cpn1">
+			<div>
+			    <h2>我是标题</h2>
+			    <p>我是内容，组件一</p>
+			    <p>script组件模板分离</p>
+			</div>
+		</script>
+
+		<!--2、使用template标签-->
+		<template id="cpn2">
+			<div>
+				<h2>我是标题</h2>
+				<p>我是内容，组件二</p>
+				<p>template组件模板分离</p>
+			</div>
+		</template>
+
+		<script>
+			/**
+			 *组件化使用步骤(VUE2.x版本)
+			 *1、创建组件构造器对象
+			 *2、注册组件
+			 *3、在vue实例作用域内使用组件
+			 */
+
+			// 1、构造器
+			/*
+			const componentConstructor = Vue.extend({
+				template: `
+					<div>
+						<h2>我是标题</h2>
+						<p>我是内容，组件一</p>
+						<p>我是组件二</p>
+					</div>
+					`,
+			});
+            */
+			// 2、注册组件(全局组件，可在多个vue实例下使用)
+			// 注册组件语法糖，不使用构造器，直接在注册时传入template
+			Vue.component("my-cpn", {
+				template: "#cpn1",
+			});
+
+			const app = new Vue({
+				el: "#app",
+				// 局部组件，只能在app内使用
+				components: {
+					cpn: {
+						template: "#cpn2",
+					},
+				},
+			});
+
+			const app2 = new Vue({
+				el: "#app2",
+			});
+		</script>
+	</body>
+</html>

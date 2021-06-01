@@ -1,0 +1,45 @@
+<script>
+    /**
+    Promise用于异步操作，例如网络请求。使用Promise可以避免回调地狱(call back hell)
+    把异步操作包在Promise里
+    1、resolve网络请求成功，传入回调数据，在then中操作回调数据
+    2、reject请求失败，在catch中处理回调数据
+    */
+
+    new Promise((resolve, reject) => {
+        // 网络请求(这里暂用setTimeout代替演示)
+        setTimeout(() => {    // 异步操作参数是请求得到的数据data
+            // 成功时调用resolve
+            resolve('hello world') // resolve传入data
+        }, 1000)
+    }).then((data) => { // then接受data
+        // 异步操作真正处理的地方
+        console.log(data)
+
+        // 可再次发起网络请求，第二个异步操作
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                // 成功时调用resolve
+                //resolve('hello world') // resolve传入data
+                // 请求失败
+                reject('error message')
+            }, 1000)
+        }).then((data1) => {
+            console.log(data1)
+        }).catch((data1) => {
+            console.log(data1)
+        })
+    })
+
+    // 第二种写法,then传入两个函数，第一个函数处理成功时，第二个处理失败
+    new Promise((resolve, reject) => {
+        setTimeout(() => {
+            reject('second type')
+        },3000)
+    }).then(data => {
+        console.log(data)
+    }, data => {
+        console.log(data)
+    })
+
+</script>
